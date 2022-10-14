@@ -72,49 +72,7 @@ class Application(tk.Frame):
             self.txt4.insert('end', self.download_path)
             self.pdf.init2(self.download_path)
             self.web.init(self.download_path)
-    # def mainloop(self):
-    #     self.root.geometry('750x500+300+200')
-    #     self.root.resizable(False, False)
-    #     self.root.title('PDF Parser')
-    #     frame = tk.Frame(self.root).pack()
-    #     frame_l = tk.Frame(frame).pack(side='left')
-    #     frame_r = tk.Frame(frame).pack(side='right')
-    #     load = Image.open('USTC.jpg')
-    #     load = load.resize((150, 150))
-    #     img = ImageTk.PhotoImage(load)
-    #     label1 = tk.Label(frame_l, image=img)
-    #     label1.place(width=150, height=150, x=100, y=50)
-    #     label0 = tk.Label(frame_l, text='论文解析器', fg='red', font=('华文新魏',25))
-    #     label0.place(width=200, height=100, x=80, y=200)
-    #     # label0.pack()
-    #     txt1 = tk.Text(frame_r)
-    #     txt1.place(relx=0.5, rely=0)
-    #     txt2 = tk.Text(frame_r)
-    #     txt2.place(relx=0.5, rely=0.5)
-    #     btn1 = tk.Button(frame_l, text='新增解析文件', command=self.set_paper_path)
-    #     btn1.place(x=20, y=300)
-    #     txt3 = tk.Text(frame_r)
-    #     txt3.place(x=120, y=300, width=230, height=30)
-    #     btn2 = tk.Button(frame_r, text='设置下载路径', command=self.set_download_path)
-    #     btn2.place(x=20, y=350)
-    #     txt4 = tk.Text(frame_r)
-    #     txt4.place(x=120, y=350, width=230, height=30)
-    #     btn3 = tk.Button(frame_l, text='开始解析!')
-    #     btn3.place(x=50, y=420, width=100, height=30)
-    #     btn4 = tk.Button(frame_l, text='爬取论文!')
-    #     btn4.place(x=200, y=420, width=100, height=30)
-    #     self.root.mainloop()
-    #
-    # def set_paper_path(self):
-    #     self.paper_path = askopenfilename()
-    #     if self.paper_path != '':
-    #         self.txt3.insert('end', self.paper_path)
-    #
-    # def set_download_path(self):
-    #
-    #     self.download_path = askdirectory()
-    #     if self.download_path != '':
-    #         self.txt4.insert('end', self.download_path)
+
 
 if __name__ == "__main__":
     web = API()
@@ -124,46 +82,3 @@ if __name__ == "__main__":
     app.init(web=web, pdf=pdf)
     app.mainloop()
 
-    # def set_paper_path():
-    #
-    #     paper_path = askopenfilename()
-    #     if paper_path != '':
-    #         self.txt3.insert('end', self.paper_path)
-    #
-    # def set_download_path():
-    #
-    #     download_path = askdirectory()
-    #     if download_path != '':
-    #         txt4.insert('end',download_path)
-    # root=tk.Tk()
-    # root.geometry('750x500+300+200')
-    # root.resizable(False, False)
-    # root.title('PDF Parser')
-    # frame = tk.Frame(root).pack()
-    # frame_l = tk.Frame(frame).pack(side='left')
-    # frame_r = tk.Frame(frame).pack(side='right')
-    # load = Image.open('USTC.jpg')
-    # load = load.resize((150,150))
-    # img = ImageTk.PhotoImage(load)
-    # label1 = tk.Label(frame_l, image=img)
-    # label1.place(width=150, height=150, x=100, y=50)
-    # label0 = tk.Label(frame_l, text='论文解析器', fg='red', font=('华文新魏',25))
-    # label0.place(width=200, height=100, x=80, y=200)
-    # # label0.pack()
-    # txt1 = tk.Text(frame_r)
-    # txt1.place(relx=0.5, rely=0)
-    # txt2 = tk.Text(frame_r)
-    # txt2.place(relx=0.5, rely=0.5)
-    # btn1 = tk.Button(frame_l, text='新增解析文件', command=set_paper_path)
-    # btn1.place(x=20, y=300)
-    # txt3 = tk.Text(frame_r)
-    # txt3.place(x=120, y=300, width=230, height=30)
-    # btn2 = tk.Button(frame_r, text='设置下载路径', command=set_download_path)
-    # btn2.place(x=20, y=350)
-    # txt4 = tk.Text(frame_r)
-    # txt4.place(x=120, y=350, width=230, height=30)
-    # btn3 = tk.Button(frame_l, text='开始解析!')
-    # btn3.place(x=50, y=420, width=100, height=30)
-    # btn4 = tk.Button(frame_l, text='爬取论文!')
-    # btn4.place(x=200, y=420, width=100, height=30)
-    # root.mainloop()
