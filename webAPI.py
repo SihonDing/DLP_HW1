@@ -3,10 +3,13 @@ from bs4 import BeautifulSoup
 import os
 import re
 class API:
+
     def init(self, download_path):
+        # Choose the download path.
         if not os.path.exists(download_path):
             os.makedirs(download_path)
         self.download_path = download_path
+
     def gfweb(self, search_content):
         global paper_url
         search_content = re.sub('[-]', '', search_content)
@@ -26,12 +29,15 @@ class API:
             'btnG': '',
         }
         if not os.path.exists(filename):
+            # Start a "GET" request.
             page_text = requests.get(url=url, params=param, headers=headers).text
+            # Find the URL for the PDF.
             soup = BeautifulSoup(page_text, 'lxml')
             try:
                 paper_url = soup.select(".gs_or_ggsm > a")[2]['href']
             except:
                 return(search_content[0:3] + "下载失败，请手动查看")
+            # Start a "GET" request for the PDF.
             paper_data = requests.get(url=paper_url, stream=True)
             with open(filename, 'wb') as fp:
                     fp.write(paper_data.content)

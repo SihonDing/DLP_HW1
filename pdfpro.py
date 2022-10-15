@@ -13,13 +13,14 @@ importlib.reload(sys)
 sys.getdefaultencoding()
 
 class PDF_Parser:
-
+    # Set the file path
     def init1(self, pdf_path):
         self.pdf_path = pdf_path
 
     def init2(self, save_path):
         self.save_path = save_path
         print(save_path)
+
     def Parsing(self):
         # Open a PDF file.
         fp = open(self.pdf_path, 'rb')
@@ -42,9 +43,9 @@ class PDF_Parser:
                     text_content.append(lt_obj.get_text())
                 else:
                     pass
-        # text_content 中每一个元素存储了一行文字
+        # Each element in text_content stores a line of words.
         total_text = ''.join(text_content).replace("\n", "")
-        # 从字符串中解析出参考文献
+        # Parse the reference from the strings.
         # file = open(self.save_path, "w", encoding='utf-8')
         p = re.compile('\[\d+\]\s[A-Z]\D+\W\s[^\[]*')
         m = p.findall(total_text)
@@ -53,7 +54,9 @@ class PDF_Parser:
         for i in range(len(m)):
             m[i] = re.sub('[-]', '', m[i])
         return m
+
     def list_sort(self, str):
+        # Sort the references.
         index1 = str.index('[')
         index2 = str.index(']')
         return int(str[index1 + 1:index2])

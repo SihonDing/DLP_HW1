@@ -21,6 +21,7 @@ class Application(tk.Frame):
         self.master.geometry('750x500+300+200')
         self.master.resizable(False, False)
         self.master.title('PDF Parser')
+        # Add window components.
         load = Image.open('USTCex.jpg')
         load = load.resize((150, 150))
         img = ImageTk.PhotoImage(load)
@@ -48,8 +49,8 @@ class Application(tk.Frame):
 
     def pdf_process(self):
         self.papers = self.pdf.Parsing()
-        print(self.papers)
-        print(type(self.papers))
+        # print(self.papers)
+        # print(type(self.papers))
         for i in self.papers:
             i = i + '\n'
             self.txt1.insert('end', i)
