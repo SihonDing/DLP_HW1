@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import re
+
+
 class API:
 
     def init(self, download_path):
@@ -20,7 +22,7 @@ class API:
         headers = {
             'Use-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.37',
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-            #         'Cookie':'HSID=AYBaM8eV1cbFRuhYC; SSID=A1SjYV0xhhMU4ZK04; APISID=5OOs2epteYTcJt0j/Am6wa83nmOyKkQoWx; SAPISID=B-u50osS_VC5pp2v/AA6qXOquLMBqs96Vx; __Secure-1PAPISID=B-u50osS_VC5pp2v/AA6qXOquLMBqs96Vx; __Secure-3PAPISID=B-u50osS_VC5pp2v/AA6qXOquLMBqs96Vx; SID=Owjy-BytkMpIQAmxZcOQs8NwpbD2-_YDsIKSmKSVbwiO2uFqAfX1ybnCCUmogbvpY7m-uA.; __Secure-1PSID=Owjy-BytkMpIQAmxZcOQs8NwpbD2-_YDsIKSmKSVbwiO2uFqIcX85Y1qOd0ByUQX1Qg8Vw.; __Secure-3PSID=Owjy-BytkMpIQAmxZcOQs8NwpbD2-_YDsIKSmKSVbwiO2uFqjc2mXpVGgG0d5s-mGaukMA.; AEC=AakniGNJvOxp6ZECRhsaIUCHMwUtc9WrjmlSWFfWTRZ9zAyw63vsV-FvVxg; 1P_JAR=2022-09-25-11; GSP=LM=1664976893:S=hXIZRphW4yz2RNjT; SIDCC=AEf-XMQrbTPxFtgMEfwW01EQtZUbEvOwHE1Ma4S0wGrQ5pKlmICtWpId5zLbGZfRfpCdcILmyw; __Secure-1PSIDCC=AEf-XMQzfzeJ-IvCmxu_gS-s4V_elFKt5KMQb3djZg5-ObkL9-9nqbYHPDlwiwxKacMN5qfzuw; __Secure-3PSIDCC=AEf-XMTq79N3ewLoe_KLHW46P8GHQ8hb2SEChDaFQW1UuKVL1bv1MkKbondnzBzvFCIwdEjWpw; NID=511=FotchhUKPOCKbIZx8euau0vyw1W8be52PyKowWAg8vEWWdBYqNrFiwDiDzmIu9gkSNvD8d6joFcgEtCFOibBAwnfFCfLdQFcxAccgSs2BSlSPOrBYw40FcwSR_eTGXbxg8q97FumBaMCRuyXYKsKBUiH_TcwzQGh5EDd79JL5KOMWXMfmy-wMYMxEZ-Qt43j96P6Wg65kaPZBMX-NC759LuW_yLQmxJr78Ulq3PNn8RLzTCaRsv70WhzCeFHAz9ZBkSzsNC1WS92q8ZMMpHFW19mgGgSjjuk',
+            # 'Cookie':'HSID=AYBaM8eV1cbFRuhYC; SSID=A1SjYV0xhhMU4ZK04; APISID=5OOs2epteYTcJt0j/Am6wa83nmOyKkQoWx; SAPISID=B-u50osS_VC5pp2v/AA6qXOquLMBqs96Vx; __Secure-1PAPISID=B-u50osS_VC5pp2v/AA6qXOquLMBqs96Vx; __Secure-3PAPISID=B-u50osS_VC5pp2v/AA6qXOquLMBqs96Vx; SID=Owjy-BytkMpIQAmxZcOQs8NwpbD2-_YDsIKSmKSVbwiO2uFqAfX1ybnCCUmogbvpY7m-uA.; __Secure-1PSID=Owjy-BytkMpIQAmxZcOQs8NwpbD2-_YDsIKSmKSVbwiO2uFqIcX85Y1qOd0ByUQX1Qg8Vw.; __Secure-3PSID=Owjy-BytkMpIQAmxZcOQs8NwpbD2-_YDsIKSmKSVbwiO2uFqjc2mXpVGgG0d5s-mGaukMA.; AEC=AakniGNJvOxp6ZECRhsaIUCHMwUtc9WrjmlSWFfWTRZ9zAyw63vsV-FvVxg; 1P_JAR=2022-09-25-11; GSP=LM=1664976893:S=hXIZRphW4yz2RNjT; SIDCC=AEf-XMQrbTPxFtgMEfwW01EQtZUbEvOwHE1Ma4S0wGrQ5pKlmICtWpId5zLbGZfRfpCdcILmyw; __Secure-1PSIDCC=AEf-XMQzfzeJ-IvCmxu_gS-s4V_elFKt5KMQb3djZg5-ObkL9-9nqbYHPDlwiwxKacMN5qfzuw; __Secure-3PSIDCC=AEf-XMTq79N3ewLoe_KLHW46P8GHQ8hb2SEChDaFQW1UuKVL1bv1MkKbondnzBzvFCIwdEjWpw; NID=511=FotchhUKPOCKbIZx8euau0vyw1W8be52PyKowWAg8vEWWdBYqNrFiwDiDzmIu9gkSNvD8d6joFcgEtCFOibBAwnfFCfLdQFcxAccgSs2BSlSPOrBYw40FcwSR_eTGXbxg8q97FumBaMCRuyXYKsKBUiH_TcwzQGh5EDd79JL5KOMWXMfmy-wMYMxEZ-Qt43j96P6Wg65kaPZBMX-NC759LuW_yLQmxJr78Ulq3PNn8RLzTCaRsv70WhzCeFHAz9ZBkSzsNC1WS92q8ZMMpHFW19mgGgSjjuk',
         }
         param = {
             'hl': 'zh-CN',
@@ -46,6 +48,7 @@ class API:
 
 
 if __name__ == '__main__':
+    # test code for this class
     api = API()
     api.init(download_path=r'C:\Users\Ding\Desktop\Download')
     api.gfweb(search_content='[1] Y. Bengio, P. Simard, and P. Frasconi. Learning long-term dependen-cies with gradient descent is difﬁcult. IEEE Transactions on NeuralNetworks, 5(2):157–166, 1994.')
